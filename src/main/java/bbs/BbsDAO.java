@@ -11,9 +11,9 @@ public class BbsDAO {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
-//	»ý¼ºÀÚ
+//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public BbsDAO() {
-//		½ÇÁúÀûÀ¸·Î MySQL¿¡ Á¢±ÙÇÒ ¼ö ÀÖµµ·Ï ÇØÁÖ´Â ¹æ¹ý
+//		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ MySQLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/BBS";
 			String dbID = "root";
@@ -74,11 +74,11 @@ public class BbsDAO {
 	public ArrayList<Bbs> getList(int pageNumber) {
 		String SQL = "SELECT * FROM bbs WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
-
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				Bbs bbs = new Bbs();
 				bbs.setBbsID(rs.getInt(1));
@@ -95,7 +95,7 @@ public class BbsDAO {
 		return list;
 	}
 
-	// ÆäÀÌÂ¡ Ã³¸® ¿ë
+	// ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½ ï¿½ï¿½
 	public boolean nextPage(int pageNumber) {
 		String SQL = "SELECT * FROM bbs WHERE bbsID < ? AND bbsAvailable = 1";
 //		ArrayList<Bbs> list = new ArrayList<Bbs>();
@@ -140,6 +140,18 @@ public class BbsDAO {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, bbsTitle);
 			pstmt.setString(2, bbsContent);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public int delete(int bbsID){
+		String SQL = "UPDATE bbs SET bbsAvailable = 0 WEHRE bbsID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bbsID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
