@@ -1,11 +1,19 @@
 package bbs;
+//practice
 
+// Bbs 게시판 관련 데이터들을 캡슐화하는 공간
 public class Bbs {
+	// 게시판 넘버링
 	private int bbsID;
+	// 게시판 제목
 	private String bbsTitle;
+	// 게시판 작성자 아이디
 	private String userID;
+	// 해당 글 등록 날짜
 	private String bbsDate;
+	// 해당 글 본문
 	private String bbsContent;
+	// 해당 글의 삭제 여부 확인
 	private int bbsAvailable;
 
 	public int getBbsID() {
